@@ -7,16 +7,16 @@
     <title>Quiz App</title>
     <style>
         body {
-            font-family: Arial, Times New Roman, serif, sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
         }
 
         .quiz-container {
-            max-width: 400px;
+            max-width: 500px;
             margin: auto;
             padding: 20px;
-            border: 1px solid black;
+            border: 2px solid black;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
         }
@@ -42,7 +42,6 @@
 
         button:disabled {
             background-color: grey;
-            cursor: not-allowed;
         }
     </style>
 </head>
@@ -69,7 +68,7 @@
             },
             {
                 question: "Who is the current Vice President of The Gambia?",
-                options: ["Isatou Touray", "Ousainou Darboe", "Muhammed BS Jallow"],
+                options: ["Dr.Isatou Touray", "Ousainou Darboe", "Muhammed B.S Jallow"],
                 answer: "Muhammed B.S Jallow"
             },
             {
@@ -80,15 +79,15 @@
         ];
         let currentQuestionIndex = 0;
         let score = 0;
-        const questionElement = document.getElementById('question');
-        const optionsElement = document.querySelector('.options');
-        const nextButton = document.getElementById('NextBtn');
-        const scoreElement = document.getElementById('score');
+        const questionElement = document.getElementById("question");
+        const optionsElement = document.querySelector(".options");
+        const nextButton = document.getElementById("NextBtn");
+        const scoreElement = document.getElementById("score");
 
         function loadQuestion() {
             const currentQuestion = quizData[currentQuestionIndex];
             questionElement.textContent = currentQuestion.question;
-            optionsElement.innerHTML = '';
+            optionsElement.innerHTML = "";
 
             currentQuestion.options.forEach(option => {
                 const button = document.createElement("button");
