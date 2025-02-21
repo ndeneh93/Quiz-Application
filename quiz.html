@@ -19,7 +19,6 @@
             border: 1px solid black;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-
         }
 
         .options {
@@ -42,11 +41,11 @@
         }
 
         button:disabled {
-            background-color: blue;
+            background-color: grey;
+            cursor: not-allowed;
         }
     </style>
 </head>
-
 
 <body>
 
@@ -56,84 +55,82 @@
         <button id="NextBtn" disabled>Next</button>
         <h3 id="score" style="display: none;"></h3>
     </div>
-        <script>
-            const quizData = [
-                {
-                    question: "Who is the current President of The Gambia?",
-                    options: ["Essa Mbaye Faal", "Adama Barrow", "Ousainou Darboe"],
-                    answer: "Adama Barrow"
-                },
-                {
-                    question: "When did The Gambia gain independence?",
-                    options: ["1965", "1973", "1967"],
-                    answer: "1965"
-                },
-                {
-                    question: "Who is the current Vice President of The Gambia?",
-                    options: ["Isatou Touray", "Ousainou Darboe", "Muhammed BS Jallow"],
-                    answer: "Muhammed B.S Jallow"
-                },
-                {
-                    question: "Who is the current Speaker of the National Assembly of The Gambia?",
-                    options: ["Mariam Jack Denton", "Fa Bakary Tombong Jatta", "Siddy Njie"],
-                    answer: "Fa Bakary Tombong Jatta"
-                }
-            ];
-            let currentQuestionIndex = 0;
-            let score = 0;
-            const questionElement = document.getElementById('question');
-            const optionsElement = document.querySelector('.options');
-            const nextButton = document.getElementById('NextBtn');
-            const scoreElement = document.getElementById('score');
-
-            function loadQuestion() {
-                const currentQuestion = quizData[currentQuestionIndex];
-                questionElement.textContent = currentQuestion.question;
-                optionsElement.innerHTML = '';
-
-                currentQuestion.options.forEach(option => {
-                    const button = document.createElement("button");
-                    button.textContent = option;
-                    button.style.display = "block";
-                    button.style.width = "100%";
-                    button.style.margin = "10px 0";
-                    button.onclick = () => selectAnswer(option, button);
-                    optionsElement.appendChild(button);
-
-                });
-                nextButton.disabled = true;
+    <script>
+        const quizData = [
+            {
+                question: "Who is the current President of The Gambia?",
+                options: ["Essa Mbaye Faal", "Adama Barrow", "Ousainou Darboe"],
+                answer: "Adama Barrow"
+            },
+            {
+                question: "When did The Gambia gain independence?",
+                options: ["1965", "1973", "1967"],
+                answer: "1965"
+            },
+            {
+                question: "Who is the current Vice President of The Gambia?",
+                options: ["Isatou Touray", "Ousainou Darboe", "Muhammed BS Jallow"],
+                answer: "Muhammed B.S Jallow"
+            },
+            {
+                question: "Who is the current Speaker of the National Assembly of The Gambia?",
+                options: ["Mariam Jack Denton", "Fa Bakary Tombong Jatta", "Siddy Njie"],
+                answer: "Fa Bakary Tombong Jatta"
             }
+        ];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.querySelector('.options');
+        const nextButton = document.getElementById('NextBtn');
+        const scoreElement = document.getElementById('score');
 
-            function selectAnswer(option, button) {
-                Array.from(optionsElement.children).forEach(btn => {
-                    btn.style.backgroundColor = 'darkgrey';
-                });
-                button.style.backgroundColor = 'lightgreen';
-                nextButton.disabled = false;
-                nextButton.onclick = () => {
-                    if (option === quizData[currentQuestionIndex].answer) {
-                        score++;
-                    }
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < quizData.length) {
-                        loadQuestion();
-                    } else {
-                        showScore();
-                    }
-                };
-            }
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
 
-            function showScore() {
-                questionElement.style.display = 'none';
-                optionsElement.style.display = 'none';
-                nextButton.style.display = 'none';
-                scoreElement.style.display = 'block';
-                scoreElement.textContent = `Your score is ${score} out of ${quizData.length}`;
-            }
-
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.style.display = "block";
+                button.style.width = "100%";
+                button.style.margin = "10px 0";
+                button.onclick = () => selectAnswer(option, button);
+                optionsElement.appendChild(button);
+            });
             nextButton.disabled = true;
-            loadQuestion();
-        </script>
+        }
+
+        function selectAnswer(option, button) {
+            Array.from(optionsElement.children).forEach(btn => {
+                btn.style.backgroundColor = 'darkgrey';
+            });
+            button.style.backgroundColor = 'lightgreen';
+            nextButton.disabled = false;
+            nextButton.onclick = () => {
+                if (option === quizData[currentQuestionIndex].answer) {
+                    score++;
+                }
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showScore();
+                }
+            };
+        }
+
+        function showScore() {
+            questionElement.style.display = 'none';
+            optionsElement.style.display = 'none';
+            nextButton.style.display = 'none';
+            scoreElement.style.display = 'block';
+            scoreElement.textContent = `Your score is ${score} out of ${quizData.length}`;
+        }
+
+        loadQuestion();
+    </script>
 
 </body>
 
